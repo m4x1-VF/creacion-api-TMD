@@ -10,7 +10,7 @@ import axios from 'axios';
 @Injectable()
 export class MovieService {
   async findAll(title: TitleDto) {
-    let movieTitle = title.title;
+    let movieTitle = title.title.trim();
 
     if (!movieTitle)
       throw new BadRequestException(
