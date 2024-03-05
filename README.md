@@ -5,6 +5,8 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
+# API REST - The Movie Database
+
 ## Descripción
 
 Crear un servicio REST que:
@@ -46,6 +48,10 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
+
+## Url de la API
+
+- http://localhost:3000/movie
 
 ## Contacto
 
