@@ -21,44 +21,43 @@ export class MovieService {
 
     const token = process.env.TMDB_API_KEY;
 
-    const movie = await axios.get<MovieResponse>(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const data = await this.getMovie(url, token);
 
-    if (movie.data.results.length === 0)
+    if (data.length === 0)
       throw new NotFoundException(
         'No se ha encontrado ninguna película con ese título',
       );
 
-    const movie_id = movie.data.results[0].id;
+    const movie_id = data[0].id;
 
     const url2 = `https://api.themoviedb.org/3/movie/${movie_id}/similar?language=es-ES&page=1`;
 
-    const similarMovies = await axios.get<MovieResponse>(url2, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const similar = await this.getMovie(url2, token);
 
     return {
-      titulo: movie.data.results[0].title,
-      titulo_original: movie.data.results[0].original_title,
-      puntuacion_media: movie.data.results[0].vote_average,
-      fecha_estreno: movie.data.results[0].release_date,
-      sinopsis: movie.data.results[0].overview,
+      titulo: data[0].title,
+      titulo_original: data[0].original_title,
+      puntuacion_media: data[0].vote_average,
+      fecha_estreno: data[0].release_date,
+      sinopsis: data[0].overview,
       similares:
-        similarMovies.data.results.length > 0
+        data.length > 0
           ? [
-              similarMovies.data.results[0].title +
-                ` (${similarMovies.data.results[0].release_date.split('-')[0]})`,
-              similarMovies.data.results[1].title +
-                ` (${similarMovies.data.results[1].release_date.split('-')[0]})`,
-              similarMovies.data.results[2].title +
-                ` (${similarMovies.data.results[2].release_date.split('-')[0]})`,
-              similarMovies.data.results[3].title +
-                ` (${similarMovies.data.results[3].release_date.split('-')[0]})`,
-              similarMovies.data.results[4].title +
-                ` (${similarMovies.data.results[4].release_date.split('-')[0]})`,
+              similar[0].title + ` (${similar[0].release_date.split('-')[0]})`,
+              similar[1].title + ` (${similar[1].release_date.split('-')[0]})`,
+              similar[2].title + ` (${similar[2].release_date.split('-')[0]})`,
+              similar[3].title + ` (${similar[3].release_date.split('-')[0]})`,
+              similar[4].title + ` (${similar[4].release_date.split('-')[0]})`,
             ]
           : [],
     };
+  }
+
+  private async getMovie(url: string, token: string) {
+    const { data } = await axios.get<MovieResponse>(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return data.results;
   }
 }
