@@ -34,6 +34,8 @@ export class MovieService {
 
     const similar = await this.getMovie(url2, token);
 
+    console.log(similar);
+
     return {
       titulo: data[0].title,
       titulo_original: data[0].original_title,
@@ -41,7 +43,7 @@ export class MovieService {
       fecha_estreno: data[0].release_date,
       sinopsis: data[0].overview,
       similares:
-        data.length > 0
+        similar.length > 0
           ? [
               similar[0].title + ` (${similar[0].release_date.split('-')[0]})`,
               similar[1].title + ` (${similar[1].release_date.split('-')[0]})`,
