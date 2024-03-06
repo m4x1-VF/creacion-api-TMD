@@ -15,7 +15,7 @@ Crear un servicio REST que:
 - Muestre una lista de películas similares
 
 Para esto, consumir la API de The Movie Database (TMD) (necesario registrarse):
-https://developers.themoviedb.org/3/getting-started/introduction
+https://developers.themoviedb.org/3/getting-started/introduction. Hay que registrar un usuario en la API de The Movie Database y obtener un API Key para poder consumir la API. Dicha API Key debe ser agregada en el archivo .env.example y renombrado a .env
 
 La información a devolver es la siguiente:
 
